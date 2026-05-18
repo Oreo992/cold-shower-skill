@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cold Shower"
+  short_description: "Pressure-test ideas before acting"
+  default_prompt: "Use $cold-shower to challenge this idea before we build it."
