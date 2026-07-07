@@ -14,7 +14,8 @@ Use this skill when you want the agent to:
 - run a pre-mortem
 - stress-test product, market, pricing, or technical plans
 - ask Socratic questions before a decision
-- review an artifact with findings first
+
+It critiques decisions, not diffs — for code review, use a dedicated review tool.
 
 The skill also supports Chinese prompts such as `泼冷水`, `挑刺`, `反驳我`, `别给情绪价值`, `苏格拉底式追问`, and `魔鬼代言人`.
 
@@ -49,16 +50,17 @@ Then restart Codex so the new skill is picked up.
 - `references/playbooks.md` - attack angles and scenario-specific critique patterns
 - `references/methods.md` - named methods (reference class forecasting, ACH, Toulmin, Fermi, RAT, 10/10/10, self-distancing, two-way doors), selected by target type
 - `references/question-bank.md` - Socratic questions for underspecified ideas
+- `references/examples.md` - worked examples: low-stakes restraint and a condensed full-depth run
 
 ## Output Style
 
-Response depth scales with input size: a one-line idea gets the single sharpest objection plus a few Socratic questions; a full plan gets the complete structure:
+Response depth scales with stakes (reversibility and blast radius), not input length: a casual take gets the single sharpest objection plus a few Socratic questions; an irreversible decision — even stated in one line — gets the complete structure:
 
-- Cold Read
-- Steelman
+- Cold Read (thesis + steelman)
 - Where It Breaks (tagged fatal / serious / friction)
-- Hidden Assumptions
-- Smallest Test
-- Verdict
+- The Load-Bearing Assumption (with the outside-view fill-in)
+- Smallest Test (with pre-committed kill criteria)
+- Verdict (including your stated confidence vs what the evidence supports)
+- a receipt line counting the objections pruned for not surviving an obvious rebuttal
 
-For code or artifact review, it uses findings-first review style with severity and file or line references. Across follow-up turns it tracks which assumptions were resolved and reports only the delta instead of re-running the full template.
+For high-stakes decisions it asks your confidence up front ("几成把握？") and records it in the ledger, so when the outcome is known, both the verdict and your calibration get scored. Across follow-up turns it tracks which assumptions were resolved and reports only the delta instead of re-running the full template.

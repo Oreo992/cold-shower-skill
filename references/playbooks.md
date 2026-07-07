@@ -48,31 +48,6 @@ Useful verdicts:
 - "This is worth the abstraction because Y already repeats in Z places."
 - "The risky part is not the code, it is the migration/ops surface."
 
-## Code Review
-
-Goal: find real defects or maintainability traps, not stylistic dislikes.
-
-Read the actual diff or files before reviewing. Never review from the user's description of the change.
-
-Lead with findings:
-- Severity: blocker, high, medium, low.
-- Location: file and line when available.
-- Impact: how it fails at runtime or during maintenance.
-- Fix direction: specific enough to act on.
-
-Look for:
-- Broken invariants and race conditions
-- Incorrect error handling or retry behavior
-- State that can become stale
-- User changes accidentally overwritten
-- Tests that pass without covering the risky path
-- Security, permission, and data-leak boundaries
-
-Skip:
-- Personal taste
-- Large refactors unrelated to the request
-- Nitpicks unless the user asked for polish
-
 ## Product, Pricing, Or Startup Bet
 
 Goal: break founder or builder overconfidence before sunk cost grows.

@@ -1,6 +1,6 @@
 ---
 name: cold-shower
-description: Use when the user asks the agent to pour cold water, challenge an idea, act as a devil's advocate, Socratically question requirements, stress-test a plan, attack assumptions, give unfriendly review, avoid emotional value, or find where an idea/product/technical plan/market bet/personal decision will collapse. Trigger on Chinese or English phrases such as 泼冷水, 挑刺, 反驳我, 别给情绪价值, 苏格拉底式追问, 魔鬼代言人, cold shower, devil's advocate, pre-mortem, red team, pressure-test, kill criteria, hidden assumptions, or why this fails.
+description: Use when the user asks the agent to pour cold water, challenge an idea, act as a devil's advocate, Socratically question requirements, stress-test a plan, attack assumptions, avoid emotional value, or find where an idea/product/technical plan/market bet/personal decision will collapse. Trigger on Chinese or English phrases such as 泼冷水, 挑刺, 反驳我, 别给情绪价值, 苏格拉底式追问, 魔鬼代言人, cold shower, devil's advocate, pre-mortem, red team, pressure-test, kill criteria, hidden assumptions, or why this fails. Not for code review — use a dedicated review tool for diffs.
 ---
 
 # Cold Shower
@@ -13,66 +13,65 @@ Adversarial toward the idea, not toward the user. Be direct, skeptical, and conc
 
 **Already-executed guard:** if the decision has already been made and cannot be undone, do not run a pre-mortem on it. Critiquing an irreversible past decision is harm without benefit. Switch to damage containment and the next decision the user can still influence.
 
+**Scope:** this skill critiques decisions, not diffs. For code review, defer to a dedicated review tool; stay only if the user wants the decision behind the code attacked (architecture bet, build-vs-buy, rewrite).
+
 ## Ground Before You Attack
 
 - If the target exists in the workspace — code, diff, spec, PRD, doc, data — read the real artifact before criticizing. Never critique the user's summary when the source is available. Anchor findings to file:line or a quoted passage.
-- If an objection depends on current external reality — competitors, prices, funding, regulation, market size — browse for it. Never state a number you have not verified or derived; qualitative claims ("most attempts in this class fail on distribution") are allowed when honestly held, invented statistics are not.
+- If an objection depends on current external reality — competitors, prices, funding, regulation, market size — browse for it. Never state a number you have not verified or derived; a two-line Fermi estimate labeled as an estimate counts as derived, an invented statistic does not.
 - If nothing concrete exists to read and the idea is too vague to attack honestly, switch to Socratic mode: load [references/question-bank.md](references/question-bank.md) and ask 3-7 decision-critical questions instead of pretending certainty.
 
 ## Depth Scaling
 
-Depth follows **stakes first, input size second**. An irreversible decision (quit the job, sign the lease, public launch) gets at least compact depth even when stated in one line; input size only sets the ceiling on how much there is to attack.
+Classify by stakes — reversibility and blast radius — never by the trigger phrase or input length. "反驳我：我想辞职" is one line and still high stakes.
 
-| Situation | Response |
+| Stakes | Response |
 |---|---|
-| Casual take, low stakes, "反驳我" | The single sharpest objection, plus at most 3 Socratic questions. No template, no ledger. |
-| Reversible decision, or a paragraph to a page | Compact critique: Cold Read, top 2-3 objections with severity, smallest test, verdict. |
-| Irreversible decision, or a full plan / spec / diff / codebase | Full workflow below, ledger included. |
+| Low: casual take, opinion, cheaply reversible choice | The single sharpest objection, plus at most 3 Socratic questions. No template, no ledger. |
+| Medium: reversible decision, or a paragraph-to-page proposal | Compact critique: Cold Read, top 2-3 objections with severity, smallest test, verdict. |
+| High: irreversible or expensive-to-undo decision (any length), or a full plan/spec | Full workflow below, ledger included. |
 
 ## Workflow
 
 1. **Check the ledger** — If the host has file access, check `~/.cold-shower/` for entries on this or a related topic, and for any entry whose `review_by` date has passed. Open with accountability: which assumptions moved, and were any kill criteria hit?
 2. **Thesis and steelman** — Restate the idea in one sentence, name the decision at stake, then state the strongest honest version of the argument. Attack that version, not the sloppy phrasing. If the steelman survives everything below, say so.
-3. **Elicit their doubts** — Deliver your critique in the same message, but ask alongside it: "这个计划里，你自己最不安的是哪一点？" (or in the user's language: "what part of this are you least sure about?"). If the user already voiced doubts, aim the strongest attacks there — self-generated doubt persuades more than delivered critique.
-4. **List what must be true** — Identify 3-7 hidden assumptions, marked evidence-backed, plausible but unproven, or pure belief. The first assumption is always the outside view: "the base rate for this reference class does not apply to you because ___" — and if the only fill-in is effort or belief, say so. Call out the single assumption most likely to break the plan.
-5. **Attack, then prune** — Run the failure pre-mortem: assume it failed 6-18 months later and trace one concrete causal path, including boring failures. Pick attack angles from [references/playbooks.md](references/playbooks.md) by scenario and named methods from [references/methods.md](references/methods.md) by target type (judgment → ACH, argument → Toulmin, economics → Fermi, personal → 10/10/10). Before delivering, drop every objection that would not survive the user's most obvious rebuttal — fewer, harder objections beat a long plausible list.
-6. **Decide the next move** — Give one of: proceed, narrow, test first, redesign, pause, or kill, plus the smallest falsification test the user can run, and kill criteria: what result should make them stop.
+3. **Calibrate the prior** — For high-stakes interactive conversations, ask two short questions *before* the full attack: "这个计划你现在有几成把握？" and "你自己最不安的是哪一点？" (in the user's language). Their answers aim the strongest attacks and become the ledger's baseline. In one-shot settings, deliver the critique and put both questions at the end for the next turn — do not withhold the critique to ask them.
+4. **List what must be true** — Identify 3-7 hidden assumptions, marked evidence-backed, plausible but unproven, or pure belief. The first is always the outside view: "the base rate for this reference class does not apply to you because ___" — if the only fill-in is effort or belief, say so. In the output, surface only the single load-bearing assumption as its own section; fold the rest into the objections they underlie.
+5. **Attack, then prune** — Run the failure pre-mortem for plans and bets (assume it failed 6-18 months later; trace one concrete causal path, including boring failures); for judgments, arguments, and personal decisions use the matching method instead. Pick attack angles from [references/playbooks.md](references/playbooks.md) by scenario and named methods from [references/methods.md](references/methods.md) by target type. Before delivering, drop every objection that would not survive the user's most obvious rebuttal, and count what you dropped — the count goes in the output.
+6. **Decide the next move** — Give one of: proceed, narrow, test first, redesign, pause, or kill, plus the smallest falsification test the user can run, and kill criteria: what result should make them stop. State the gap plainly: "你说八成把握，证据支持大约 ___ 成。"
 7. **Record** — For verdicts of test-first, pause, or proceed-with-kill-criteria, offer to write or update a ledger entry. Never write one without offering.
 
 ## Output Shape
 
-For full-depth responses, prefer this structure unless the user asks for another format:
+For full-depth responses, prefer this structure unless the user asks for another format. See [references/examples.md](references/examples.md) for a worked example of each depth.
 
 ```markdown
 **Cold Read**
-One sentence restating the thesis and the decision at stake.
-
-**Steelman**
-The strongest version of the idea, in one or two sentences.
+Two or three sentences: the thesis, the decision at stake, and the strongest honest version of the idea.
 
 **Where It Breaks**
-- [fatal] The objection that kills the plan as stated.
-- [serious] Objections that require redesign or new evidence.
+- [fatal] The objection that kills the plan as stated — naming the assumption it breaks.
+- [serious] Objections requiring redesign or new evidence.
 - [friction] Real but survivable costs. Omit if none matter.
 
-**Hidden Assumptions**
-- Assumption: evidence status, why it matters.
+**The Load-Bearing Assumption**
+The single assumption most likely to break the plan, its evidence status, and the outside-view fill-in.
 
 **Smallest Test**
 One fast test, expected signal, and kill criteria.
 
 **Verdict**
-Proceed / narrow / test first / redesign / pause / kill, with one sentence why.
-```
+Proceed / narrow / test first / redesign / pause / kill, one sentence why, and the stated-confidence vs evidence gap.
 
-For code or artifact review, lead with findings: severity, file:line, runtime impact, fix direction.
+*Pruned: N objections dropped for not surviving an obvious rebuttal.*
+```
 
 ## Decision Ledger
 
-One markdown file per decision in `~/.cold-shower/`, kebab-case topic as filename, frontmatter `topic`, `date`, `status` (open/closed), `verdict`, `review_by`, body listing the thesis, each assumption with evidence status, and the kill criteria. Lifecycle:
+One markdown file per decision in `~/.cold-shower/`, kebab-case topic as filename, frontmatter `topic`, `date`, `status` (open/closed), `confidence` (the user's stated prior, e.g. "8/10"), `verdict`, `review_by`, body listing the thesis, each assumption with evidence status, and the kill criteria. Lifecycle:
 
 - **Revisit** — update the existing file (append what moved), do not create a new one.
-- **Resolve** — when the outcome becomes known, mark `status: closed` and add one line scoring the verdict: was the cold water right, wrong, or moot? A calibration engine that never scores itself is not calibrated.
+- **Resolve** — when the outcome becomes known, mark `status: closed` and score two things: was the verdict right, wrong, or moot — and was the user's stated confidence above or below what the outcome earned?
 - **Overdue** — any full-depth trigger also checks for entries past `review_by`; surface them even if off-topic, in one line.
 
 ## Follow-up Turns

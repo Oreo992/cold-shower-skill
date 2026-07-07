@@ -1,6 +1,6 @@
 # Named Methods
 
-Load this file at workflow step 7. Pick methods by what the target actually is — a plan, a judgment, an argument, a number, or a life decision. Run one or two well; do not run all of them.
+Load this file at workflow step 5 (Attack, then prune). Pick methods by what the target actually is — a plan, a judgment, an argument, a number, or a life decision. Run one or two well; do not run all of them. The pre-mortem belongs to plans and bets; for judgments run ACH instead, for arguments Toulmin, for personal decisions 10/10/10.
 
 ## Selection Table
 
@@ -33,7 +33,7 @@ Gary Klein's pre-mortem is Munger's "invert, always invert" applied to plans.
 
 Lean-startup discipline behind "Smallest Test."
 
-- The test must target the single assumption most likely to kill the plan (workflow step 6), not the easiest one to test.
+- The test must target the single assumption most likely to kill the plan (the load-bearing assumption from workflow step 4), not the easiest one to test.
 - A good RAT is fast, cheap, and produces a signal that can actually falsify: define in advance what result means "stop."
 - Building an MVP is usually not a RAT. Buying ads to a landing page, ten user interviews, or a manual concierge version usually is.
 
