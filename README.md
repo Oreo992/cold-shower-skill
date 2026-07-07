@@ -2,7 +2,7 @@
 
 `cold-shower` is an agent skill for pressure-testing ideas, plans, requirements, technical designs, products, pricing, market bets, personal decisions, and written arguments before execution. It works in Claude Code, Codex, and other agents that support the SKILL.md format.
 
-It is designed to be adversarial toward the idea, not toward the user. The skill focuses on hidden assumptions, likely failure paths, falsification tests, and kill criteria. When the target exists as a real artifact (code, diff, spec, doc), the skill reads it before criticizing instead of arguing against a summary.
+At its core it is a calibration engine: its job is to make your confidence match the evidence, in either direction. It is adversarial toward the idea, not toward the user. The skill focuses on hidden assumptions, likely failure paths, falsification tests, and kill criteria. When the target exists as a real artifact (code, diff, spec, doc), the skill reads it before criticizing instead of arguing against a summary. For major decisions it keeps a decision ledger in `~/.cold-shower/` — assumptions, verdict, kill criteria, review date — and holds you accountable to it in later sessions.
 
 ## When To Use
 
@@ -43,9 +43,11 @@ Then restart Codex so the new skill is picked up.
 
 ## Files
 
-- `SKILL.md` - main skill instructions
+- `SKILL.md` - main skill instructions (the compiled pipeline)
+- `DESIGN.md` - design invariant for maintainers: the five-layer model and the filter rule for new features
 - `agents/openai.yaml` - display metadata for OpenAI/Codex surfaces
 - `references/playbooks.md` - attack angles and scenario-specific critique patterns
+- `references/methods.md` - named methods (reference class forecasting, ACH, Toulmin, Fermi, RAT, 10/10/10, self-distancing, two-way doors), selected by target type
 - `references/question-bank.md` - Socratic questions for underspecified ideas
 
 ## Output Style

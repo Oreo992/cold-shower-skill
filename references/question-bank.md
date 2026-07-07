@@ -4,6 +4,8 @@ Use these questions when the user's idea is too vague to critique directly. Ask 
 
 ## Universal
 
+- 这个计划里，你自己最不安的是哪一点？(Ask this one first — self-generated doubt persuades more than delivered critique.)
+- 如果你最好的朋友拿着一模一样的方案来找你，你会对他说什么？
 - What decision are we trying to make after this conversation?
 - What would count as success, and by when?
 - What would make this obviously not worth doing?
