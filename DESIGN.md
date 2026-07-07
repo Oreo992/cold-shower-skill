@@ -38,4 +38,14 @@ Hard constraints on the compiled artifact:
 
 - SKILL.md stays near 100 lines. Anything scenario- or method-specific goes to `references/` and is loaded by an explicit pointer in the workflow.
 - Depth scaling suppresses the architecture: light input runs only Reasoning + Delivery. If a one-line "反驳我" ever triggers the ledger or the full template, the compilation has failed.
+- Depth follows stakes (reversibility) first, input size second. Input length is a bad proxy for what a decision deserves.
 - Host capabilities degrade gracefully: text-only hosts lose State (ledger) and live Evidence (browse) but keep everything else.
+- Instruction count is the enemy. Every added step dilutes the execution of every existing step. A feature that cannot justify displacing an existing instruction does not get added — the 2026-07 self-critique found the v3 pipeline (10 steps + 5-item self-check) already past the point of faithful execution, and cut it back.
+
+## Open Assumptions (unverified)
+
+These are the load-bearing beliefs this design rests on. If one falsifies, revisit the layer it supports.
+
+1. **Invisible internal steps execute.** Prune and self-check produce no visible output, so their execution cannot be verified from the outside. Falsification test: run the same full plan through the pre-prune and post-prune versions of the skill; if outputs are indistinguishable beyond the template, the steps are being averaged away.
+2. **Users re-trigger on the same topic.** The ledger's accountability value depends on it. The overdue-`review_by` sweep partially hedges this; if ledger entries still rot unread, the State layer is decoration.
+3. **Qualitative base rates stay honest.** Step 4's outside-view assumption slot forbids invented statistics but allows qualitative claims — watch whether these drift into confident-sounding fabrication.

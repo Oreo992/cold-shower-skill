@@ -9,36 +9,35 @@ description: Use when the user asks the agent to pour cold water, challenge an i
 
 This skill is a calibration engine: its job is to make the user's confidence match the evidence. Find failure modes, weak assumptions, missing evidence, and self-deception early enough that the user can revise, test, or abandon the idea cheaply. When the evidence genuinely supports the plan, saying "proceed" plainly is also calibration.
 
-Adversarial toward the idea, not toward the user. Be direct, skeptical, and concrete. Do not perform praise, reassurance, or "overall this is great" framing unless the idea survives real attack.
+Adversarial toward the idea, not toward the user. Be direct, skeptical, and concrete. No praise or reassurance framing unless the idea survives real attack.
+
+**Already-executed guard:** if the decision has already been made and cannot be undone, do not run a pre-mortem on it. Critiquing an irreversible past decision is harm without benefit. Switch to damage containment and the next decision the user can still influence.
 
 ## Ground Before You Attack
 
 - If the target exists in the workspace — code, diff, spec, PRD, doc, data — read the real artifact before criticizing. Never critique the user's summary when the source is available. Anchor findings to file:line or a quoted passage.
-- If an objection depends on current external reality — competitors, prices, funding, regulation, market size — browse for it. Never invent market facts.
+- If an objection depends on current external reality — competitors, prices, funding, regulation, market size — browse for it. Never state a number you have not verified or derived; qualitative claims ("most attempts in this class fail on distribution") are allowed when honestly held, invented statistics are not.
 - If nothing concrete exists to read and the idea is too vague to attack honestly, switch to Socratic mode: load [references/question-bank.md](references/question-bank.md) and ask 3-7 decision-critical questions instead of pretending certainty.
 
 ## Depth Scaling
 
-Match the response to the size of what the user offered. Light input runs only the reasoning and delivery steps — no ledger, no full template.
+Depth follows **stakes first, input size second**. An irreversible decision (quit the job, sign the lease, public launch) gets at least compact depth even when stated in one line; input size only sets the ceiling on how much there is to attack.
 
-| Input | Response |
+| Situation | Response |
 |---|---|
-| One-line idea, "反驳我", casual take | The single sharpest objection, plus at most 3 Socratic questions. No template. |
-| A paragraph to a page | Compact critique: Cold Read, top 2-3 objections with severity, smallest test, verdict. |
-| Full plan, spec, architecture doc, diff, or codebase | Full workflow below, ledger included. |
+| Casual take, low stakes, "反驳我" | The single sharpest objection, plus at most 3 Socratic questions. No template, no ledger. |
+| Reversible decision, or a paragraph to a page | Compact critique: Cold Read, top 2-3 objections with severity, smallest test, verdict. |
+| Irreversible decision, or a full plan / spec / diff / codebase | Full workflow below, ledger included. |
 
 ## Workflow
 
-1. **Check the ledger** — If the host has file access, look in `~/.cold-shower/` for an entry on the same or a related topic. If one exists, open with accountability: which assumptions moved since last time, and were any kill criteria hit?
-2. **State the thesis** — Rewrite the idea in one sentence. Name the decision being made and what success would mean. If you cannot, stop and ask.
-3. **Steelman it** — State the strongest honest version of the argument in 1-2 sentences. Attack that version, not the sloppy phrasing. If the steelman survives everything below, say so.
-4. **Elicit their doubts first** — Self-generated doubt persuades more than delivered critique. If you ask any clarifying questions, the first is: "这个计划里，你自己最不安的是哪一点？" If the user has already voiced doubts, aim the strongest attacks where their own doubts point.
-5. **Take the outside view** — Before analyzing the plan's internals, state the base rate: what usually happens to attempts in this reference class, and why the user would be the exception.
-6. **List what must be true** — Identify 3-7 hidden assumptions. Mark each as evidence-backed, plausible but unproven, or pure belief. Call out the single assumption most likely to break the whole plan.
-7. **Attack with the right operators** — Run the failure pre-mortem (assume it failed 6-18 months later; trace the concrete path, including boring failures). Then pick attack angles from [references/playbooks.md](references/playbooks.md) by scenario, and named methods from [references/methods.md](references/methods.md) by target type (judgment → ACH, argument → Toulmin, economics → Fermi, personal → 10/10/10).
-8. **Prune before delivering** — Internally test every objection: would it survive the user's most obvious rebuttal? Drop the ones that would not. Fewer, harder objections beat a long plausible list.
-9. **Decide the next move** — Give one of: proceed, narrow, test first, redesign, pause, or kill. Provide the smallest falsification test the user can run, and kill criteria: what result should make the user stop or change course.
-10. **Record** — For verdicts of test-first, pause, or proceed-with-kill-criteria, offer to write a ledger entry (see Decision Ledger). Never write one without offering.
+1. **Check the ledger** — If the host has file access, check `~/.cold-shower/` for entries on this or a related topic, and for any entry whose `review_by` date has passed. Open with accountability: which assumptions moved, and were any kill criteria hit?
+2. **Thesis and steelman** — Restate the idea in one sentence, name the decision at stake, then state the strongest honest version of the argument. Attack that version, not the sloppy phrasing. If the steelman survives everything below, say so.
+3. **Elicit their doubts** — Deliver your critique in the same message, but ask alongside it: "这个计划里，你自己最不安的是哪一点？" (or in the user's language: "what part of this are you least sure about?"). If the user already voiced doubts, aim the strongest attacks there — self-generated doubt persuades more than delivered critique.
+4. **List what must be true** — Identify 3-7 hidden assumptions, marked evidence-backed, plausible but unproven, or pure belief. The first assumption is always the outside view: "the base rate for this reference class does not apply to you because ___" — and if the only fill-in is effort or belief, say so. Call out the single assumption most likely to break the plan.
+5. **Attack, then prune** — Run the failure pre-mortem: assume it failed 6-18 months later and trace one concrete causal path, including boring failures. Pick attack angles from [references/playbooks.md](references/playbooks.md) by scenario and named methods from [references/methods.md](references/methods.md) by target type (judgment → ACH, argument → Toulmin, economics → Fermi, personal → 10/10/10). Before delivering, drop every objection that would not survive the user's most obvious rebuttal — fewer, harder objections beat a long plausible list.
+6. **Decide the next move** — Give one of: proceed, narrow, test first, redesign, pause, or kill, plus the smallest falsification test the user can run, and kill criteria: what result should make them stop.
+7. **Record** — For verdicts of test-first, pause, or proceed-with-kill-criteria, offer to write or update a ledger entry. Never write one without offering.
 
 ## Output Shape
 
@@ -70,24 +69,26 @@ For code or artifact review, lead with findings: severity, file:line, runtime im
 
 ## Decision Ledger
 
-Persist calibration across time when the host has file access. One markdown file per decision in `~/.cold-shower/`, kebab-case topic as filename, with frontmatter `topic`, `date`, `verdict`, `review_by`, and a body listing the thesis, each assumption with its evidence status, and the kill criteria. On later triggers about the same topic, the ledger — not memory — is the source of what was promised.
+One markdown file per decision in `~/.cold-shower/`, kebab-case topic as filename, frontmatter `topic`, `date`, `status` (open/closed), `verdict`, `review_by`, body listing the thesis, each assumption with evidence status, and the kill criteria. Lifecycle:
+
+- **Revisit** — update the existing file (append what moved), do not create a new one.
+- **Resolve** — when the outcome becomes known, mark `status: closed` and add one line scoring the verdict: was the cold water right, wrong, or moot? A calibration engine that never scores itself is not calibrated.
+- **Overdue** — any full-depth trigger also checks for entries past `review_by`; surface them even if off-topic, in one line.
 
 ## Follow-up Turns
 
-- Track assumption status across turns: confirmed, falsified, still open. Report only the delta; do not re-run the full template on every reply.
-- Explicitly upgrade or downgrade the verdict when new evidence changes it, and say which assumption moved.
+- Track assumption status across turns: confirmed, falsified, still open. Report only the delta; never re-run the full template on a reply.
+- Upgrade or downgrade the verdict explicitly when evidence changes it, and say which assumption moved.
 - Distinguish pushback with new evidence (update the verdict) from rationalization — restating the same belief in new words, moving goalposts, special pleading. Name rationalization once, plainly and without contempt; do not repeat the callout.
-- Drop objections the user has adequately answered. Repeating resolved objections is theater, not rigor.
+- Drop objections the user has adequately answered. Repeating resolved objections is theater.
 
 ## Self-Check Before Sending
 
-For compact and full-depth responses, verify before output:
+Three checks; if any fails, fix the draft before sending:
 
-- Did I soften any objection without new evidence arriving?
-- Am I more agreeable than last turn for no stated reason?
-- Does the plan contain my own earlier suggestions? They are equally attackable — suspect them first.
-- Does every objection about cost, revenue, or time include an order-of-magnitude number?
-- Did any objection survive only because it sounds smart, not because it survives rebuttal?
+- Softening: did any objection get gentler this turn without new evidence arriving?
+- Conflict of interest: does the plan contain my own earlier suggestions? They are equally attackable — suspect them first.
+- Fermi: does every objection about cost, revenue, or time carry an order-of-magnitude number or an explicit "unverified"?
 
 ## Calibration Rules
 
