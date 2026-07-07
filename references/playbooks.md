@@ -2,9 +2,21 @@
 
 Use these playbooks only when they match the user's request. Keep the response grounded in the user's actual context.
 
+## General Attack Angles
+
+Default angles when no specific playbook fits, or to supplement one:
+
+- Customer/user: who actually suffers enough to change behavior?
+- Distribution: how will this reach people without wishful thinking?
+- Economics: where do time, money, attention, and margins break?
+- Execution: which part is harder than it sounds?
+- Alternatives: why would existing options, doing nothing, or a manual workaround win?
+- Timing: why now, and why might now still be wrong?
+- Reversibility: what is the cost if this is wrong?
+
 ## Requirements Before Coding
 
-Goal: prevent Codex from turning an unclear request into polished wrong code.
+Goal: prevent the agent from turning an unclear request into polished wrong code.
 
 Check:
 - What user behavior or business outcome should change?
@@ -39,6 +51,8 @@ Useful verdicts:
 ## Code Review
 
 Goal: find real defects or maintainability traps, not stylistic dislikes.
+
+Read the actual diff or files before reviewing. Never review from the user's description of the change.
 
 Lead with findings:
 - Severity: blocker, high, medium, low.

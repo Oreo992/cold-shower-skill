@@ -1,12 +1,12 @@
 # Cold Shower Skill
 
-`cold-shower` is a Codex skill for pressure-testing ideas, plans, requirements, technical designs, products, pricing, market bets, personal decisions, and written arguments before execution.
+`cold-shower` is an agent skill for pressure-testing ideas, plans, requirements, technical designs, products, pricing, market bets, personal decisions, and written arguments before execution. It works in Claude Code, Codex, and other agents that support the SKILL.md format.
 
-It is designed to be adversarial toward the idea, not toward the user. The skill focuses on hidden assumptions, likely failure paths, falsification tests, and kill criteria.
+It is designed to be adversarial toward the idea, not toward the user. The skill focuses on hidden assumptions, likely failure paths, falsification tests, and kill criteria. When the target exists as a real artifact (code, diff, spec, doc), the skill reads it before criticizing instead of arguing against a summary.
 
 ## When To Use
 
-Use this skill when you want Codex to:
+Use this skill when you want the agent to:
 
 - pour cold water on an idea
 - act as a devil's advocate
@@ -20,7 +20,17 @@ The skill also supports Chinese prompts such as `泼冷水`, `挑刺`, `反驳�
 
 ## Install
 
-Install into Codex with:
+### Claude Code
+
+Clone into your personal skills directory and restart Claude Code:
+
+```bash
+git clone https://github.com/Oreo992/cold-shower-skill ~/.claude/skills/cold-shower
+```
+
+Then invoke it with `/cold-shower`, or just ask for cold water in natural language.
+
+### Codex
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
@@ -35,18 +45,18 @@ Then restart Codex so the new skill is picked up.
 
 - `SKILL.md` - main skill instructions
 - `agents/openai.yaml` - display metadata for OpenAI/Codex surfaces
-- `references/playbooks.md` - scenario-specific critique patterns
+- `references/playbooks.md` - attack angles and scenario-specific critique patterns
 - `references/question-bank.md` - Socratic questions for underspecified ideas
 
 ## Output Style
 
-The default output shape is:
+Response depth scales with input size: a one-line idea gets the single sharpest objection plus a few Socratic questions; a full plan gets the complete structure:
 
 - Cold Read
-- Where It Breaks
+- Steelman
+- Where It Breaks (tagged fatal / serious / friction)
 - Hidden Assumptions
-- Questions Before Moving
 - Smallest Test
 - Verdict
 
-For code or artifact review, it uses findings-first review style with severity and file or line references where available.
+For code or artifact review, it uses findings-first review style with severity and file or line references. Across follow-up turns it tracks which assumptions were resolved and reports only the delta instead of re-running the full template.
